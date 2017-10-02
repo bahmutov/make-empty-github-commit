@@ -37,6 +37,9 @@ Optional arguments:
 
 Aliases: `--repo -r`, `--message -m`, `--branch -b`
 
+For authentication, set environment variable with your GitHub personal token
+under name `TOKEN`, `GH_TOKEN` or `GITHUB_TOKEN`
+
 ### API
 
 ```js
