@@ -87,7 +87,7 @@ var updateRefrence = function (data) {
   })
 }
 
-function commitToGithub (opts) {
+function emptyGitHubCommit (opts) {
   opts = opts || {}
   if (!opts.owner || !opts.repo) {
     console.error('missing owner or repo')
@@ -103,7 +103,7 @@ function commitToGithub (opts) {
   }
   data.owner = opts.owner
   data.repo = opts.repo
-  data.fullyQualifiedRef = opts.fullyQualifiedRef || 'heads/dev'
+  data.fullyQualifiedRef = opts.fullyQualifiedRef || 'heads/master'
   data.forceUpdate = opts.forceUpdate || false
   data.commitMessage =
     opts.commitMessage || 'AutoCommit - ' + new Date().getTime().toString()
@@ -118,11 +118,11 @@ function commitToGithub (opts) {
   })
 }
 
-module.exports = commitToGithub
+module.exports = emptyGitHubCommit
 
 if (!module.parent) {
   console.log('demo commit')
-  commitToGithub({
+  emptyGitHubCommit({
     owner: 'bahmutov',
     repo: 'commit-to-github',
     token: process.env.TOKEN,
