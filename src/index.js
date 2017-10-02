@@ -106,7 +106,9 @@ function emptyGitHubCommit (opts) {
   data.fullyQualifiedRef = opts.fullyQualifiedRef || 'heads/master'
   data.forceUpdate = opts.forceUpdate || false
   data.commitMessage =
-    opts.commitMessage || 'AutoCommit - ' + new Date().getTime().toString()
+    opts.message ||
+    opts.commitMessage ||
+    'AutoCommit - ' + new Date().getTime().toString()
 
   return new Promise((resolve, reject) => {
     getReferenceCommit(data)

@@ -55,6 +55,14 @@ emptyGitHubCommit({
 Uses [http://mikedeboer.github.io/node-github](http://mikedeboer.github.io/node-github)
 to make API calls.
 
+### Testing
+
+To test this project I created dummy repo 
+[test-make-empty-github-commit](https://github.com/bahmutov/test-make-empty-github-commit).
+See its [commit history](https://github.com/bahmutov/test-make-empty-github-commit/commits/master)
+to see empty commit messages created from this repository using
+tests in [test](test) folder.
+
 ### Debugging
 
 Run the tool with environment variable `DEBUG=make-empty-github-commit`
