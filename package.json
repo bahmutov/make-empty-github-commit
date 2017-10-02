@@ -1,7 +1,7 @@
 {
   "name": "make-empty-github-commit",
   "description": "Makes a new empty commit on GitHub using API",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
   "bugs": "https://github.com/bahmutov/make-empty-github-commit/issues",
   "config": {
@@ -61,7 +61,8 @@
     "secure": "nsp check",
     "size": "t=\"$(npm pack .)\"; wc -c \"${t}\"; tar tvf \"${t}\"; rm \"${t}\";",
     "test": "npm run unit",
-    "unit": "mocha src/*-spec.js"
+    "unit": "mocha src/*-spec.js",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "release": {
     "analyzeCommits": "simple-commit-message"
@@ -76,7 +77,8 @@
     "nsp": "2.8.1",
     "pre-git": "3.15.3",
     "prettier-standard": "7.0.1",
-    "standard": "10.0.3"
+    "standard": "10.0.3",
+    "semantic-release": "^8.0.3"
   },
   "dependencies": {
     "debug": "3.1.0",
