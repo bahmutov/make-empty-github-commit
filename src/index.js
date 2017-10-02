@@ -65,7 +65,7 @@ var createCommit = function (data) {
   })
 }
 
-var updateRefrence = function (data) {
+var updateReference = function (data) {
   console.log('updating reference')
   return new Promise((resolve, reject) => {
     data.github.gitdata.updateReference(
@@ -76,12 +76,12 @@ var updateRefrence = function (data) {
         sha: data.newCommitSha,
         force: data.forceUpdate
       },
-      (err, data) => {
+      (err, res) => {
         if (err) {
-          debug('updateRefrence', JSON.stringify(err, null, '  '))
+          debug('updateReference', JSON.stringify(err, null, '  '))
           return reject(err)
         }
-        return resolve(data)
+        return resolve(res.data)
       }
     )
   })
@@ -90,8 +90,8 @@ var updateRefrence = function (data) {
 function emptyGitHubCommit (opts) {
   opts = opts || {}
   if (!opts.owner || !opts.repo) {
-    console.error('missing owner or repo')
-    return ''
+    const e = new Error('missing owner or repo')
+    return Promise.reject(e)
   }
   var data = {}
   data.github = new GitHubApi()
@@ -114,8 +114,11 @@ function emptyGitHubCommit (opts) {
     getReferenceCommit(data)
       .then(getCommitData)
       .then(createCommit)
-      .then(updateRefrence)
-      .then(resolve)
+      .then(updateReference)
+      .then(data => {
+        console.log('new commit SHA', data.object.sha)
+        resolve({ sha: data.object.sha })
+      })
       .catch(error => reject(error))
   })
 }

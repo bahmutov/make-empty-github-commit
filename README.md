@@ -52,6 +52,8 @@ emptyGitHubCommit({
 })
 ```
 
+Resolves with an object with at least `sha` property of the new commit.
+
 Uses [http://mikedeboer.github.io/node-github](http://mikedeboer.github.io/node-github)
 to make API calls.
 
