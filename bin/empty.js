@@ -20,7 +20,9 @@ const options = require('minimist')(process.argv, {
 const emptyGitHubCommit = require('..')
 
 if (!options.repo || !options.message) {
-  console.log('usage: empty-commit --repo <github repo> --message <commit message>')
+  console.log(
+    'usage: empty-commit --repo <github repo> --message <commit message>'
+  )
   console.log('optional args')
   console.log('  --branch <master>')
   process.exit(1)
