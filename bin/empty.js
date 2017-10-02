@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-const token = process.env.TOKEN || process.env.GITHUB_TOKEN || process.env.GH_TOKEN
+const token =
+  process.env.TOKEN || process.env.GITHUB_TOKEN || process.env.GH_TOKEN
 if (!token) {
   console.error('Cannot find TOKEN or GITHUB_TOKEN or GH_TOKEN')
   process.exit(1)
