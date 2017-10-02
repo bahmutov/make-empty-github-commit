@@ -77,5 +77,9 @@
     "pre-git": "3.15.3",
     "prettier-standard": "7.0.1",
     "standard": "10.0.3"
+  },
+  "dependencies": {
+    "debug": "3.1.0",
+    "github": "11.0.0"
   }
 }
