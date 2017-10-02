@@ -18,6 +18,15 @@ npm install --save make-empty-github-commit
 
 ## Use
 
+### Debugging
+
+Run the tool with environment variable `DEBUG=make-empty-github-commit`
+
+## Related
+
+This code started as a fork of [commit-to-github](https://www.npmjs.com/package/commit-to-github),
+but was simplified for creating just empty commits.
+
 ### Small print
 
 Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2017
