@@ -18,6 +18,43 @@ npm install --save make-empty-github-commit
 
 ## Use
 
+### CLI
+
+From command line
+
+```
+$(npm bin)/empty-commit --repo <username/repo> --message "Empty commit message"
+```
+
+You can pass repo in different format, it will be parsed using
+[parse-github-repo-url](https://github.com/repo-utils/parse-github-repo-url).
+
+Optional arguments:
+
+```
+--branch <master> 
+```
+
+Aliases: `--repo -r`, `--message -m`, `--branch -b`
+
+### API
+
+```js
+const emptyGitHubCommit = require('make-empty-github-commit')
+emptyGitHubCommit({
+  owner: 'username',
+  repo: 'repo name',
+  token: process.env.TOKEN,
+  fullyQualifiedRef: 'heads/develop'
+}).then(console.log, e => {
+  console.error(e)
+  process.exit(1)
+})
+```
+
+Uses [http://mikedeboer.github.io/node-github](http://mikedeboer.github.io/node-github)
+to make API calls.
+
 ### Debugging
 
 Run the tool with environment variable `DEBUG=make-empty-github-commit`
