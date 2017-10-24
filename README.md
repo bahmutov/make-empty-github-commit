@@ -48,6 +48,7 @@ emptyGitHubCommit({
   owner: 'username',
   repo: 'repo name',
   token: process.env.TOKEN,
+  message: 'my message',
   fullyQualifiedRef: 'heads/develop'
 }).then(console.log, e => {
   console.error(e)
