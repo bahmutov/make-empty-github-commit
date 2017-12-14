@@ -136,9 +136,9 @@ if (!module.parent) {
   console.log('demo commit')
   emptyGitHubCommit({
     owner: 'bahmutov',
-    repo: 'commit-to-github',
+    repo: 'make-empty-github-commit',
     token: process.env.TOKEN,
-    branch: 'master'
+    branch: 'test-branch'
   }).then(console.log, e => {
     console.error(e)
     process.exit(1)
