@@ -45,7 +45,7 @@ emptyGitHubCommit({
   repo: repo,
   token: token,
   message: options.message,
-  fullyQualifiedRef: `heads/${options.branch}`
+  branch: options.branch
 }).then(console.log, e => {
   console.error(e)
   process.exit(1)

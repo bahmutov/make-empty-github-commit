@@ -32,7 +32,7 @@ You can pass repo in different format, it will be parsed using
 Optional arguments:
 
 ```
---branch <master> 
+--branch <master>
 ```
 
 Aliases: `--repo -r`, `--message -m`, `--branch -b`
@@ -49,7 +49,7 @@ emptyGitHubCommit({
   repo: 'repo name',
   token: process.env.TOKEN,
   message: 'my message',
-  fullyQualifiedRef: 'heads/develop'
+  branch: 'develop' // "master" is default
 }).then(console.log, e => {
   console.error(e)
   process.exit(1)
@@ -63,7 +63,7 @@ to make API calls.
 
 ### Testing
 
-To test this project I created dummy repo 
+To test this project I created dummy repo
 [test-make-empty-github-commit](https://github.com/bahmutov/test-make-empty-github-commit).
 See its [commit history](https://github.com/bahmutov/test-make-empty-github-commit/commits/master)
 to see empty commit messages created from this repository using

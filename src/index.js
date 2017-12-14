@@ -103,7 +103,14 @@ function emptyGitHubCommit (opts) {
   }
   data.owner = opts.owner
   data.repo = opts.repo
-  data.fullyQualifiedRef = opts.fullyQualifiedRef || 'heads/master'
+
+  if (opts.branch) {
+    data.fullyQualifiedRef = `heads/${opts.branch}`
+  } else {
+    const defaultRef = 'heads/master'
+    data.fullyQualifiedRef = opts.fullyQualifiedRef || defaultRef
+  }
+
   data.forceUpdate = opts.forceUpdate || false
   data.commitMessage =
     opts.message ||
@@ -131,7 +138,7 @@ if (!module.parent) {
     owner: 'bahmutov',
     repo: 'commit-to-github',
     token: process.env.TOKEN,
-    fullyQualifiedRef: 'heads/master'
+    branch: 'master'
   }).then(console.log, e => {
     console.error(e)
     process.exit(1)
