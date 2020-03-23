@@ -1,10 +1,9 @@
-# make-empty-github-commit
+# make-empty-github-commit ![CI status](https://github.com/bahmutov/make-empty-github-commit/workflows/ci/badge.svg?branch=master)
 
 > Makes a new empty commit on GitHub using API
 
 [![NPM][npm-icon] ][npm-url]
 
-[![Build status][ci-image] ][ci-url]
 [![semantic-release][semantic-image] ][semantic-url]
 [![js-standard-style][standard-image]][standard-url]
 
@@ -118,8 +117,6 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 [npm-icon]: https://nodei.co/npm/make-empty-github-commit.svg?downloads=true
 [npm-url]: https://npmjs.org/package/make-empty-github-commit
-[ci-image]: https://travis-ci.org/bahmutov/make-empty-github-commit.svg?branch=master
-[ci-url]: https://travis-ci.org/bahmutov/make-empty-github-commit
 [semantic-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
 [semantic-url]: https://github.com/semantic-release/semantic-release
 [standard-image]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg
