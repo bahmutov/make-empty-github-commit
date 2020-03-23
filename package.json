@@ -15,7 +15,6 @@
         "npm run ban"
       ],
       "pre-push": [
-        "npm run secure",
         "npm run license",
         "npm run ban -- --all",
         "npm run size"
@@ -64,7 +63,6 @@
     "prelint": "npm run pretty",
     "pretest": "npm run lint",
     "pretty": "prettier-standard 'src/*.js' 'bin/*.js' 'test/*.js'",
-    "secure": "nsp check",
     "size": "npm pack --dry",
     "test": "npm run unit",
     "unit": "mocha src/*-spec.js test/*spec.js",
@@ -82,7 +80,6 @@
     "lazy-ass": "1.6.0",
     "license-checker": "14.0.0",
     "mocha": "3.5.3",
-    "nsp": "2.8.1",
     "pre-git": "3.15.3",
     "prettier-standard": "16.2.1",
     "semantic-release": "^17.0.4",
