@@ -4,27 +4,8 @@
   "version": "0.0.0-development",
   "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
   "bugs": "https://github.com/bahmutov/make-empty-github-commit/issues",
-  "config": {
-    "pre-git": {
-      "commit-msg": "simple",
-      "pre-commit": [
-        "npm prune",
-        "npm run deps",
-        "npm test",
-        "git add src/*.js bin/*.js test/*.js",
-        "npm run ban"
-      ],
-      "pre-push": [
-        "npm run license",
-        "npm run ban -- --all",
-        "npm run size"
-      ],
-      "post-commit": [],
-      "post-merge": []
-    }
-  },
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   },
   "alias": {
     "empty": "bin/empty.js",
@@ -68,9 +49,6 @@
     "unit": "mocha src/*-spec.js test/*spec.js",
     "semantic-release": "semantic-release"
   },
-  "release": {
-    "analyzeCommits": "simple-commit-message"
-  },
   "devDependencies": {
     "ban-sensitive-files": "1.9.0",
     "check-more-types": "2.24.0",
@@ -80,7 +58,6 @@
     "lazy-ass": "1.6.0",
     "license-checker": "14.0.0",
     "mocha": "3.5.3",
-    "pre-git": "3.15.3",
     "prettier-standard": "16.2.1",
     "semantic-release": "^17.0.4",
     "standard": "14.3.3"
