@@ -68,7 +68,7 @@
     "size": "npm pack --dry",
     "test": "npm run unit",
     "unit": "mocha src/*-spec.js test/*spec.js",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release"
   },
   "release": {
     "analyzeCommits": "simple-commit-message"
@@ -85,7 +85,7 @@
     "nsp": "2.8.1",
     "pre-git": "3.15.3",
     "prettier-standard": "16.2.1",
-    "semantic-release": "^8.0.3",
+    "semantic-release": "^17.0.4",
     "standard": "14.3.3"
   },
   "dependencies": {
