@@ -6,6 +6,8 @@ const makeEmptyGithubCommit = require('..')
 
 /* eslint-env mocha */
 describe('make-empty-github-commit', () => {
+  // to work, requires GitHub token set via an environment variable
+  // usually this token is set as part of semantic release setup
   const token =
     process.env.TOKEN || process.env.GITHUB_TOKEN || process.env.GH_TOKEN
 
