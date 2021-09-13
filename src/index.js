@@ -1,90 +1,51 @@
-var GitHubApi = require('github')
+var { Octokit } = require('@octokit/rest')
 var debug = require('debug')('make-empty-github-commit')
 
-var getReferenceCommit = function (data) {
-  return new Promise((resolve, reject) => {
-    data.github.gitdata.getReference(
-      {
-        owner: data.owner,
-        repo: data.repo,
-        ref: data.fullyQualifiedRef
-      },
-      (err, res) => {
-        if (err) {
-          debug('getReferenceCommit', JSON.stringify(err, null, '  '))
-          return reject(err)
-        }
-        const result = res.data.object
-        return resolve(Object.assign(data, { referenceCommitSha: result.sha }))
-      }
-    )
+var getReferenceCommit = async function (data) {
+  const res = await data.octokit.rest.git.getRef({
+    owner: data.owner,
+    repo: data.repo,
+    ref: data.fullyQualifiedRef
   })
+
+  return Object.assign(data, { referenceCommitSha: res.data.object.sha })
 }
 
-var getCommitData = function (data) {
-  console.log('getting commit', data.referenceCommitSha)
-  return new Promise((resolve, reject) => {
-    data.github.repos.getCommit(
-      {
-        owner: data.owner,
-        repo: data.repo,
-        sha: data.referenceCommitSha
-      },
-      (err, res) => {
-        if (err) {
-          debug('getCommitData', JSON.stringify(err, null, '  '))
-          return reject(err)
-        }
-        const result = res.data
-        return resolve(Object.assign(data, { tree: result.commit.tree.sha }))
-      }
-    )
+var getCommitData = async function (data) {
+  const res = await data.octokit.rest.git.getCommit({
+    owner: data.owner,
+    repo: data.repo,
+    commit_sha: data.referenceCommitSha
   })
+
+  console.log('commit data:', res.data)
+
+  return Object.assign(data, { tree: res.data.tree.sha })
 }
 
-var createCommit = function (data) {
-  console.log('creating commit')
-  return new Promise((resolve, reject) => {
-    data.github.gitdata.createCommit(
-      {
-        owner: data.owner,
-        repo: data.repo,
-        message: data.commitMessage,
-        tree: data.tree,
-        parents: [data.referenceCommitSha]
-      },
-      (err, res) => {
-        if (err) {
-          debug('createCommit', JSON.stringify(err, null, '  '))
-          return reject(err)
-        }
-        console.log('new commit sha', res.data.sha)
-        return resolve(Object.assign(data, { newCommitSha: res.data.sha }))
-      }
-    )
-  })
+var createCommit = async function (data) {
+  const res = await data.octokit.rest.git.createCommit({
+      owner: data.owner,
+      repo: data.repo,
+      message: data.commitMessage,
+      tree: data.tree,
+      parents: [data.referenceCommitSha]
+    })
+
+  console.log('new commit sha', res.data.sha)
+  return Object.assign(data, { newCommitSha: res.data.sha })
 }
 
-var updateReference = function (data) {
-  console.log('updating reference')
-  return new Promise((resolve, reject) => {
-    data.github.gitdata.updateReference(
-      {
-        owner: data.owner,
-        repo: data.repo,
-        ref: data.fullyQualifiedRef,
-        sha: data.newCommitSha,
-        force: data.forceUpdate
-      },
-      (err, res) => {
-        if (err) {
-          debug('updateReference', JSON.stringify(err, null, '  '))
-          return reject(err)
-        }
-        return resolve(res.data)
-      }
-    )
+var updateReference = async function (data) {
+  const res = await data.octokit.rest.git.updateRef({
+    owner: data.owner,
+    repo: data.repo,
+    ref: data.fullyQualifiedRef,
+    sha: data.newCommitSha,
+    force: data.forceUpdate
   })
+
+  return res.data
 }
 
 function emptyGitHubCommit (opts) {
@@ -94,13 +55,9 @@ function emptyGitHubCommit (opts) {
     return Promise.reject(e)
   }
   var data = {}
-  data.github = new GitHubApi()
-  if (opts.token) {
-    data.github.authenticate({
-      type: 'oauth',
-      token: opts.token
-    })
-  }
+  data.octokit = new Octokit({
+    auth: opts.token
+  })
   data.owner = opts.owner
   data.repo = opts.repo
 
@@ -117,17 +74,14 @@ function emptyGitHubCommit (opts) {
     opts.commitMessage ||
     'AutoCommit - ' + new Date().getTime().toString()
 
-  return new Promise((resolve, reject) => {
-    getReferenceCommit(data)
-      .then(getCommitData)
-      .then(createCommit)
-      .then(updateReference)
-      .then(data => {
-        console.log('new commit SHA', data.object.sha)
-        resolve({ sha: data.object.sha })
-      })
-      .catch(error => reject(error))
-  })
+  return getReferenceCommit(data)
+    .then(getCommitData)
+    .then(createCommit)
+    .then(updateReference)
+    .then(data => {
+      console.log('new commit SHA', data.object.sha)
+      return { sha: data.object.sha }
+    })
 }
 
 module.exports = emptyGitHubCommit
